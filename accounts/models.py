@@ -53,11 +53,11 @@ class UserManager(BaseUserManager):
     
 
 class User(AbstractBaseUser, PermissionsMixin):
-    RESTAURANT = 1
+    VENDOR = 1
     CUSTOMER = 2
 
     ROLE_CHOICE = (
-        (RESTAURANT, 'Restaurant'),
+        (VENDOR, 'Vendor'),
         (CUSTOMER, 'Customer'),
     )
 
@@ -101,7 +101,6 @@ class UserProfile(models.Model):
     address_line2 = models.CharField(max_length=50, blank=True, null=True)
     country = models.CharField(max_length=15, blank=True, null=True)
     state = models.CharField(max_length=15, blank=True, null=True)
-    state = models.CharField(max_length=6, blank=True, null=True)
     longitude = models.CharField(max_length=20, blank=True, null=True)
     latitude = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -126,5 +125,6 @@ def post_save_create_profile_receiver(sender, instance, created, **kwargs):
 @receiver(pre_save, sender=User)
 def pre_save_profile_receiver(sender, instance, **kwargs):
     print(instance.username, "this user is being saved")
+
 # post_save.connect(post_save_create_profile_receiver)
 
